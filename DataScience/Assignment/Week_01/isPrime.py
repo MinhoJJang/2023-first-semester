@@ -9,8 +9,8 @@ def isPrime(n):
     for i in range(2, sqrtN):
         if n % i == 0:
             print("i = ", i)
-            return "not prime"
-    return "prime"
+            return "n is not prime"
+    return "n is prime"
 
 
 print(isPrime(random.randrange(2, 32768)))
