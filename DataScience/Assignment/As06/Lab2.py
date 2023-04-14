@@ -95,16 +95,17 @@ My_Scaling(scaler, "After MinMaxScaler")
 scaler = RobustScaler()
 My_Scaling(scaler, "After RobustScaler")
 
-# ----------------------------------------- ( 6/7) ------------------------------------------
+# ----------------------------------------- (5/7) ------------------------------------------
+# Missing value manipulation (more elaborate)
+# Clean the dirty values using linear regression
 
-# 
-# Please give me a full python code that satisfies all the condition below.
+# Cleaning the Input Dataset:
+# Compute the linear regression equation E for (height, weight) values in the input dataset
 
-
+# For dirty height and weight values, compute replacement values using E
+# Computed with known weight and height values, respectively
 import pandas as pd
-
 from sklearn.linear_model import LinearRegression
-
 
 # Function to identify and replace dirty data
 def clean_data(row, model, coef, intercept):
@@ -163,9 +164,8 @@ print(f"Linear Regression Equation: E(y) = {coefficient:.2f} * x + {intercept:.2
 data_cleaned = data.apply(clean_data, axis=1, args=(E, coefficient, intercept))
 
 
-# 2. Do the same for the groups divided by gender.
+# Do the same for the groups divided by gender.
 # the dirty value of a female record is cleaned using the equation E_f computed for the female group
-
 def clean_data_gender_bmi(row, model_f, coef_f, intercept_f, model_m, coef_m, intercept_m):
     height = row["Height (Inches)"]
     weight = row["Weight (Pounds)"]
@@ -216,7 +216,6 @@ print(f"Male Linear Regression Equation: E_m(y) = {coefficient_male:.2f} * x + {
 # Replace dirty values using the gender-specific linear regression equations
 data_cleaned_gender = data.apply(clean_data_gender_bmi, axis=1, args=(
     E_female, coefficient_female, intercept_female, E_male, coefficient_male, intercept_male))
-
 
 # 2. Do the same for the groups divided by BMI, 1 to 4
 def clean_data_bmi(row, model, coefs, intercepts):
@@ -273,20 +272,21 @@ for i in range(1, 4):
 data_cleaned_bmi = data.apply(clean_data_bmi, axis=1, args=(models_bmi, coefs_bmi, intercepts_bmi))
 
 
-# 3. Draw a scatter plot of (height, weight) in the clean dataset emphasizing previously dirty records with a different color
 
+# 3. Draw a scatter plot of (height, weight) in the clean dataset emphasizing previously dirty records with a different color
+# For a dirty record, compare the replacement values computed using different regression equations
+# e.g., the height replacement values for a dirty record (NAN, w) computed using E and Ef might be different
+
+# GENERAL
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-
-# (existing code above)
 
 # 1. Create a boolean mask to identify dirty records
 dirty_mask = data.isna().any(axis=1)
 
 # Clean the data using different regression equations
-data_cleaned = data_cleaned  # or data_cleaned_bmi, depending on which one you want to use
+data_cleaned = data_cleaned
 
 # Separate clean and dirty records
 clean_records = data_cleaned[~dirty_mask]
@@ -310,9 +310,9 @@ ax.legend()
 plt.show()
 
 # =========================
-
+# GENDER
 # Clean the data using different regression equations
-data_cleaned = data_cleaned_gender  # or data_cleaned_bmi, depending on which one you want to use
+data_cleaned = data_cleaned_gender
 
 # Separate clean and dirty records
 clean_records = data_cleaned[~dirty_mask]
@@ -335,9 +335,9 @@ ax.legend()
 plt.show()
 
 # ============================
-
+# BMI
 # Clean the data using different regression equations
-data_cleaned = data_cleaned_bmi  # or data_cleaned_bmi, depending on which one you want to use
+data_cleaned = data_cleaned_bmi
 
 # Separate clean and dirty records
 clean_records = data_cleaned[~dirty_mask]
