@@ -97,12 +97,12 @@ My_Scaling(scaler, "After RobustScaler")
 
 # ----------------------------------------- ( 6/7) ------------------------------------------
 
-# The dataset name is bmi_data_lab2.csv, and the feature name of this dataset are Sex,Age,Height (Inches),Weight (Pounds),BMI. There is also NaN value and dirty data in feature Height (Inches),Weight (Pounds). Also Height (Inches),Weight (Pounds) two feature is float type. And Sex feature is composed with Female and Male. BMI is integer value that has value from zero to three.
+# 
 # Please give me a full python code that satisfies all the condition below.
 
 
 import pandas as pd
-import numpy as np
+
 from sklearn.linear_model import LinearRegression
 
 
