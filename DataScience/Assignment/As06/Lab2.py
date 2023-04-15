@@ -140,7 +140,7 @@ def is_valid_weight(weight):
 data = pd.read_csv("bmi_data_lab2.csv")
 
 # Clean the data
-# If the data is unvaild, set them np.nan
+# If the data is invaild, set them np.nan
 data["Height (Inches)"] = data["Height (Inches)"].apply(
     lambda x: float(x) if not pd.isna(x) and is_valid_height(x) else np.nan)
 data["Weight (Pounds)"] = data["Weight (Pounds)"].apply(
@@ -220,7 +220,7 @@ print(f"Male Linear Regression Equation: E_m(y) = {coefficient_male:.2f} * x + {
 data_cleaned_gender = data.apply(clean_data_gender_bmi, axis=1, args=(
     E_female, coefficient_female, intercept_female, E_male, coefficient_male, intercept_male))
 
-# 2. Do the same for the groups divided by BMI, 1 to 4
+# 2. Do the same for the groups divided by BMI, 1 to 3
 def clean_data_bmi(row, model, coefs, intercepts):
     height = row["Height (Inches)"]
     weight = row["Weight (Pounds)"]
@@ -283,7 +283,9 @@ data_cleaned_bmi = data.apply(clean_data_bmi, axis=1, args=(models_bmi, coefs_bm
 # GENERAL
 
 # Create a boolean mask to identify dirty records
-dirty_mask = data.isna().any(axis=1)
+dirty_mask = (
+    data['Height (Inches)'].isna() | data['Weight (Pounds)'].isna()
+)
 
 # Clean the data using different regression equations
 data_cleaned = data_cleaned
