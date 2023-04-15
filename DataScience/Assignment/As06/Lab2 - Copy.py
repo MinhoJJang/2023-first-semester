@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import RobustScaler
 import seaborn as sns
-from sklearn.linear_model import LinearRegression
+
 # ----------------------------------------- (2/7) ------------------------------------------
 
 df = pd.read_csv("bmi_data_lab2.csv")
@@ -44,22 +44,21 @@ clean_df = df.dropna()
 
 # ----------------------------------------- (2/7) ------------------------------------------
 
-for i in range(0,5):
-    # Plot height & weight histograms (bins=10) for each BMI value.
-    h= clean_df.loc[clean_df['BMI']==i, ['Height (Inches)']].values
-    w= clean_df.loc[clean_df['BMI']==i, ['Weight (Pounds)']].values
+# Plot height & weight histograms (bins=10) for each BMI value.
+h = clean_df.loc[:, ['Height (Inches)']].values
+w = clean_df.loc[:, ['Weight (Pounds)']].values
 
-    # Print height histogram.
-    plt.title("height histogram of people with bmi %d" %i)
-    plt.hist(h, bins=10)
-    Histo_height = plt
-    Histo_height.show()
+# Print height histogram.
+plt.title("Histogram of result_Height")
+plt.hist(h, bins=10)
+Histo_height = plt
+Histo_height.show()
 
-    # Print weight histogram.
-    plt.title("Weight histogram of people with bmi %d" %i)
-    plt.hist(w, bins=10)
-    Histo_weight = plt
-    Histo_weight.show()
+# Print weight histogram.
+plt.title("Histogram of result_Weight")
+plt.hist(w, bins=10)
+Histo_weight = plt
+Histo_weight.show()
 
 
 # Plot scaling results for height and weight.
@@ -97,7 +96,6 @@ scaler = RobustScaler()
 My_Scaling(scaler, "After RobustScaler")
 
 # ----------------------------------------- (5/7) ------------------------------------------
-# Author: 202033762 Jang Min Ho
 # Missing value manipulation (more elaborate)
 # Clean the dirty values using linear regression
 
@@ -106,7 +104,8 @@ My_Scaling(scaler, "After RobustScaler")
 
 # For dirty height and weight values, compute replacement values using E
 # Computed with known weight and height values, respectively
-
+import pandas as pd
+from sklearn.linear_model import LinearRegression
 
 # Function to identify and replace dirty data
 def clean_data(row, model, coef, intercept):
@@ -140,7 +139,6 @@ def is_valid_weight(weight):
 data = pd.read_csv("bmi_data_lab2.csv")
 
 # Clean the data
-# If the data is unvaild, set them np.nan
 data["Height (Inches)"] = data["Height (Inches)"].apply(
     lambda x: float(x) if not pd.isna(x) and is_valid_height(x) else np.nan)
 data["Weight (Pounds)"] = data["Weight (Pounds)"].apply(
@@ -148,7 +146,6 @@ data["Weight (Pounds)"] = data["Weight (Pounds)"].apply(
 
 # Prepare the data for linear regression
 known_data = data.dropna(subset=["Height (Inches)", "Weight (Pounds)"])
-print(known_data)
 X = known_data["Height (Inches)"].values.reshape(-1, 1)
 y = known_data["Weight (Pounds)"].values
 
@@ -247,7 +244,7 @@ intercepts_bmi = [None] * 4
 # Prepare the data for linear regression. Add BMI feature
 known_data = data.dropna(subset=["Height (Inches)", "Weight (Pounds)", "BMI"])
 
-# print(known_data)
+print(known_data)
 
 for i in range(1, 4):
     known_data_bmi = known_data[known_data["BMI"] == i]
@@ -281,8 +278,11 @@ data_cleaned_bmi = data.apply(clean_data_bmi, axis=1, args=(models_bmi, coefs_bm
 # e.g., the height replacement values for a dirty record (NAN, w) computed using E and Ef might be different
 
 # GENERAL
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Create a boolean mask to identify dirty records
+# 1. Create a boolean mask to identify dirty records
 dirty_mask = data.isna().any(axis=1)
 
 # Clean the data using different regression equations
