@@ -84,12 +84,13 @@ features.to_csv("ft.csv")
 # Create a new feature
 feature_matrix, feature_defs = ft.dfs(
     entityset=es,
+
     target_dataframe_name='clients',
     agg_primitives=['sum'],
     trans_primitives=[],
     max_depth=1
 )
 
-feature_matrix['total_loan_amount'] = feature_matrix['SUM(loans.loan_amount)']
-
-print(feature_matrix[['total_loan_amount']])
+# feature_matrix['total_loan_amount'] = feature_matrix['SUM(loans.loan_amount)']
+#
+# print(feature_matrix[['total_loan_amount']])
