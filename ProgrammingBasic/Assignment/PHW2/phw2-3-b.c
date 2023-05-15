@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
-int fac(int num)
+double fac(int num)
 {
-    int fact = 1;
+    double fact = 1;
     for (int i = 1; i <= num; i++)
     {
         fact *= i; // multiply fact by i on each iteration

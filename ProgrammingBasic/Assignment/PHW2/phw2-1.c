@@ -5,7 +5,7 @@
 int main()
 {
     int num; // reads an integer
-    printf("Enter an integer: \n");
+    printf("Enter an integer: ");
     scanf("%d", &num);
     int root_n = sqrt(num); // square root n
 
@@ -34,7 +34,7 @@ int main()
          is not true.
         So Q and P can't be a positive integer. It means if we check the integers 1 from k, we must can find a(a<=b).
         */
-        for (int i = 3; i <= root_n; i++)
+        for (int i = 2; i <= root_n; i++)
         {
             if (num % i == 0)
             {
