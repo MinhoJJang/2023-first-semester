@@ -1,26 +1,14 @@
-#include <stdio.h>
 
 int main()
 {
-    float input[10];
-    float sum = 0;
-    for (int i = 0; i < 10; i++)
+    int i, num1[5], num2[5];
+    for (i = 0; i < 5; i++)
     {
-        scanf("%f", &input[i]);
-        sum += input[i];
+        printf("\n type a number");
+        scanf("% d", &num2[i]);
     }
-
-    int idx = 0;
-    while (2)
-    {
-        printf("2\n");
-        idx++;
-        if (idx > 5)
-        {
-            break;
-        }
-    }
-
-    printf("sum = %.2f, avg = %.2f \n", sum, sum / 10);
-    return 0;
+    for (i = 0; i < 5; i++)
+        num1[i] = num2[i];
+    for (i = 0; i < 5; i++)
+        printf("\n % d num2 = % d and num1 = % d", i, num2[i], num1[i]);
 }
