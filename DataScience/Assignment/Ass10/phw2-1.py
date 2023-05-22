@@ -1,4 +1,4 @@
-# Import necessary libraries
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -8,8 +8,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 df = pd.read_csv('linear_regression_data.csv')
 
 # Define the features and target
-X = df['distance'].values.reshape(-1,1)
-y = df['delivery time']
+X = df['Distance'].values.reshape(-1,1)
+y = df['Delivery Time']
 
 # Split the dataset into 4/5 for training and 1/5 for testing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, shuffle=True, stratify=None)

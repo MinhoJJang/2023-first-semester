@@ -1,7 +1,9 @@
-# Import necessary libraries
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+
+
 
 # Load the dataset
 dataset = np.loadtxt('mouse.csv', delimiter=',')
@@ -50,3 +52,8 @@ kmeans.fit(dataset)
 plt.scatter(dataset[:, 0], dataset[:, 1], c=kmeans.labels_)
 plt.title("Final Clustering Result")
 plt.show()
+
+# The reason of choosing 'best' result
+# The reason to choose the 3 best results for each number of clusters is to explore the effects of different parameters on the clustering algorithm's performance for each possible cluster number. The 'best' in this context is defined by the inertia, which is the sum of squared distances of samples to their closest cluster center. A lower inertia value signifies a better clustering result, hence we sort the results based on inertia and pick the top 3.
+#
+# Finally, we choose a single best overall result to use for our final clustering. This is simply because at the end of the day, we want a single clustering solution to apply to our data. The final best parameters are chosen based on the same criterion: the lowest inertia. This best set of parameters gives us the most optimal clustering solution across all combinations of parameters we've tried. In the final step, we run the KMeans algorithm again with this best combination to produce our final clustering result.

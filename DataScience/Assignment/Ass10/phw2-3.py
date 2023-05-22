@@ -1,9 +1,8 @@
-# Import necessary libraries
+
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
+from sklearn.model_selection import cross_val_score, GridSearchCV, RandomizedSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, classification_report
 
 # Load the dataset
 df = pd.read_csv('knn_data.csv')
