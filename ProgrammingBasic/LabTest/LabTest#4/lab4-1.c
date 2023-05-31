@@ -13,16 +13,51 @@ int str_len(char *in)
 
 int str_find(char *in, char *word)
 {
-    int in_idx = 0;
     int word_idx = 0;
+    int in_len = str_len(in);
+    int word_len = str_len(word);
 
-    if (in[in_idx] == word[word_idx])
+    for (int in_idx = 0; in_idx < in_len; in_idx++)
     {
+        if (in[in_idx] == word[word_idx])
+        {
+            if (in_len - in_idx < word_len)
+            {
+                return -1;
+            }
+            else
+            {
+                int flag = 0;
+                for (int i = 0; i < word_len; i++)
+                {
+                    if (in[in_idx + i] != word[word_idx + i])
+                    {
+                        flag = -1;
+                    }
+                }
+
+                if (flag == 0)
+                {
+                    return in_idx;
+                }
+            }
+        }
     }
 }
 
 void str_rev(char *in, int start_pos, int end_pos)
 {
+    char temp[50];
+
+    for (int i = start_pos; i <= end_pos; i++)
+    {
+        temp[i] = in[i];
+    }
+
+    for (int i = start_pos; i <= end_pos; i++)
+    {
+        in[i] = temp[end_pos + start_pos - i];
+    }
 }
 
 int main()
@@ -37,26 +72,13 @@ int main()
 
     len = str_len(word);
 
-    print(len);
+    pos = str_find(string_in, word);
+    str_rev(string_in, pos, pos + len - 1);
 
-    // pos = str_find(string_in, word);
-    // str_rev(string_in, pos, pos+len-1);
-
-    // printf("(Results)\n");
-    // printf("Word length: %d\n", len);
-    // printf("The found place: %d\n", pos);
-    // printf("Output: %d\n", string_in);
+    printf("(Results)\n");
+    printf("Word length: %d\n", len);
+    printf("The found place: %d\n", pos);
+    printf("Output: %s\n", string_in);
 
     return 0;
 }
-}
-#include <stdio.h>
-
-#include <stdio.h>
-
-return 0;
-}
-#include <stdio.h>
-
-#include <stdio.h>
-
