@@ -46,7 +46,7 @@ void main()
     for (int i = 0; i < 10; i++)
     {
         printf("%02d ", original_array[i]);
-        printf("%02d ", idx_arr[i]);
+        // printf("%02d ", idx_arr[i]);
     }
     printf("\nShuffled Array: ");
     for (int i = 0; i < 10; i++)
